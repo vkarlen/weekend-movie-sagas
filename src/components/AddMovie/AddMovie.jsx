@@ -1,21 +1,25 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function AddMovie() {
+  const dispatch = useDispatch();
+
   const genres = useSelector((store) => store.genres);
 
   const [newTitle, setNewTitle] = useState('');
   const [newImage, setNewImage] = useState('');
   const [newDescription, setNewDescription] = useState('');
 
-  //   an input field (for the movie title)
-  // - an input field (for the movie poster image URL))
-  // - a textarea (for the movie description)
-  // - a dropdown (for the genres)
+  useEffect(() => {
+    dispatch({ type: 'FETCH_GENRES' });
+  }, []);
 
+  console.log(genres);
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
     console.log('on submit');
   };
 

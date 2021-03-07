@@ -15,6 +15,7 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeEvery('FETCH_MOVIES', fetchAllMovies);
   yield takeEvery('FETCH_EXACT_MOVIE', fetchExactMovie);
+  yield takeEvery('FETCH_GENRES', fetchAllGenres);
 }
 
 function* fetchAllMovies() {
@@ -32,7 +33,7 @@ function* fetchExactMovie(action) {
   console.log('in fetch exact', action.payload);
 
   try {
-    let response = yield axios.get(`/api/movie/${action.payload.id}`);
+    const response = yield axios.get(`/api/movie/${action.payload.id}`);
 
     yield put({
       type: 'SET_EXACT',
@@ -42,6 +43,18 @@ function* fetchExactMovie(action) {
     console.log('Error in fetch exact', error);
   }
 } // end fetchExactMovie
+
+function* fetchAllGenres() {
+  console.log('in fetchAllGenres');
+
+  try {
+    const response = yield axios.get('/api/genre');
+
+    yield put({ type: 'SET_GENRES', payload: response.data });
+  } catch {
+    console.log('get all error');
+  }
+}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
