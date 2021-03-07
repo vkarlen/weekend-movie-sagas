@@ -3,17 +3,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function DetailsPage() {
-  const params = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const movie = useSelector((store) => store.exactMovie);
 
   useEffect(() => {
-    //grab details about specific movie
+    // grab details about specific movie
     dispatch({
       type: 'FETCH_EXACT_MOVIE',
-      payload: { id: params.id },
+      payload: { id },
     });
   }, []);
 
@@ -23,11 +23,15 @@ function DetailsPage() {
 
       <h3>{movie.title}</h3>
 
-      <ul>
-        {movie.array_agg.map((genre, index) => {
-          return <li key={index}>{genre}</li>;
-        })}
-      </ul>
+      {movie.array_agg ? (
+        <ul>
+          {movie.array_agg.map((genre, index) => {
+            return <li key={index}>{genre}</li>;
+          })}
+        </ul>
+      ) : (
+        <ul>none</ul>
+      )}
 
       <p>{movie.description}</p>
 
