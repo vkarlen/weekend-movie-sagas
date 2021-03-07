@@ -9,7 +9,7 @@ function AddMovie() {
   const genres = useSelector((store) => store.genres);
 
   const [newTitle, setNewTitle] = useState('');
-  const [newImage, setNewImage] = useState('');
+  const [newPoster, setNewPoster] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [newGenre, setNewGenre] = useState('');
 
@@ -21,7 +21,21 @@ function AddMovie() {
     evt.preventDefault();
 
     console.log('on submit', newGenre);
-  };
+
+    dispatch({
+      type: 'ADD_MOVIE',
+      payload: {
+        title: newTitle,
+        poster: newPoster,
+        description: newDescription,
+        genre_id: newGenre,
+      },
+    });
+  }; // end handleSubmit
+
+  const handleCancel = () => {
+    console.log('in cancel');
+  }; //end handleCancel
 
   return (
     <div>
@@ -32,28 +46,42 @@ function AddMovie() {
           label="Title"
           value={newTitle}
           onChange={(evt) => setNewTitle(evt.target.value)}
+          required
         ></input>
 
         <input
           type="text"
           label="Poster Image"
-          value={newImage}
-          onChange={(evt) => setNewImage(evt.target.value)}
+          value={newPoster}
+          onChange={(evt) => setNewPoster(evt.target.value)}
+          required
         ></input>
 
         <textarea
           label="Description"
           value={newDescription}
           onChange={(evt) => setNewDescription(evt.target.value)}
+          required
         ></textarea>
 
-        <select name="genre" onChange={(evt) => setNewGenre(evt.target.value)}>
+        <select
+          name="genre"
+          onChange={(evt) => setNewGenre(evt.target.value)}
+          required
+        >
+          <option disabled selected value>
+            Select a Genre
+          </option>
           {genres.map((genre) => {
             return <option value={genre.id}>{genre.name}</option>;
           })}
         </select>
 
-        <button>Submit</button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
+        </button>
+
+        <button type="submit">Save</button>
       </form>
     </div>
   );
