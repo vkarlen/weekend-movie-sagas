@@ -11,16 +11,16 @@ function AddMovie() {
   const [newTitle, setNewTitle] = useState('');
   const [newImage, setNewImage] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newGenre, setNewGenre] = useState('');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_GENRES' });
   }, []);
 
-  console.log(genres);
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    console.log('on submit');
+    console.log('on submit', newGenre);
   };
 
   return (
@@ -47,7 +47,11 @@ function AddMovie() {
           onChange={(evt) => setNewDescription(evt.target.value)}
         ></textarea>
 
-        <select name="genre">{/* map out genres */}</select>
+        <select name="genre" onChange={(evt) => setNewGenre(evt.target.value)}>
+          {genres.map((genre) => {
+            return <option value={genre.id}>{genre.name}</option>;
+          })}
+        </select>
 
         <button>Submit</button>
       </form>
