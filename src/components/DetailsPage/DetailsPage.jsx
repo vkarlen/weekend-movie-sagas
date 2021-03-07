@@ -8,7 +8,6 @@ function DetailsPage() {
   const history = useHistory();
 
   const movie = useSelector((store) => store.exactMovie);
-  //const movie = useSelector(store);
 
   useEffect(() => {
     //grab details about specific movie
@@ -25,8 +24,8 @@ function DetailsPage() {
       <h3>{movie.title}</h3>
 
       <ul>
-        {movie.array_agg.map((genre) => {
-          return <li>{genre}</li>;
+        {movie.array_agg.map((genre, index) => {
+          return <li key={index}>{genre}</li>;
         })}
       </ul>
 

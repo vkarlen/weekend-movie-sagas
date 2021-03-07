@@ -31,7 +31,7 @@ function* fetchAllMovies() {
 } // end fetchAllMovies
 
 function* fetchExactMovie(action) {
-  //console.log('in fetch exact', action.payload);
+  console.log('in fetch exact', action.payload);
 
   try {
     const response = yield axios.get(`/api/movie/${action.payload.id}`);
