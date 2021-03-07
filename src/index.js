@@ -15,13 +15,15 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeEvery('FETCH_MOVIES', fetchAllMovies);
   yield takeEvery('FETCH_EXACT_MOVIE', fetchExactMovie);
+  yield takeEvery('FETCH_GENRES', fetchAllGenres);
+  yield takeEvery('ADD_MOVIE', addMovie);
 }
 
 function* fetchAllMovies() {
   // get all movies from the DB
   try {
     const movies = yield axios.get('/api/movie');
-    console.log('get all:', movies.data);
+    //console.log('get all:', movies.data);
     yield put({ type: 'SET_MOVIES', payload: movies.data });
   } catch {
     console.log('get all error');
@@ -29,10 +31,10 @@ function* fetchAllMovies() {
 } // end fetchAllMovies
 
 function* fetchExactMovie(action) {
-  console.log('in fetch exact', action.payload);
+  //console.log('in fetch exact', action.payload);
 
   try {
-    let response = yield axios.get(`/api/movie/${action.payload.id}`);
+    const response = yield axios.get(`/api/movie/${action.payload.id}`);
 
     yield put({
       type: 'SET_EXACT',
@@ -42,6 +44,30 @@ function* fetchExactMovie(action) {
     console.log('Error in fetch exact', error);
   }
 } // end fetchExactMovie
+
+function* fetchAllGenres() {
+  //console.log('in fetchAllGenres');
+
+  try {
+    const response = yield axios.get('/api/genre');
+
+    yield put({ type: 'SET_GENRES', payload: response.data });
+  } catch (error) {
+    console.log('Error getting genres', error);
+  }
+} // end fetchAllGenres
+
+function* addMovie(action) {
+  //console.log('in addMovie', action.payload);
+
+  try {
+    yield axios.post('/api/movie', action.payload);
+
+    put({ type: 'FETCH_MOVIES' });
+  } catch (error) {
+    console.log('Error adding movie', error);
+  }
+} // end addMovie
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
