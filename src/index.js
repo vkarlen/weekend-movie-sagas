@@ -33,7 +33,11 @@ function* fetchExactMovie(action) {
 
   try {
     let response = yield axios.get(`/api/movie/${action.payload.id}`);
-    console.log('exact', response);
+
+    yield put({
+      type: 'SET_EXACT',
+      payload: response.data,
+    });
   } catch (error) {
     console.log('Error in fetch exact', error);
   }
@@ -62,11 +66,22 @@ const genres = (state = [], action) => {
   }
 };
 
+// Used to store exact movie retrieved from server
+const exactMovie = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_EXACT':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
     movies,
     genres,
+    exactMovie,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)

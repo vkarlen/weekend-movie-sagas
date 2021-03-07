@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 // GET MOVIE BY ID
 router.get('/:id', (req, res) => {
-  //console.log('in get', req.params.id);
+  console.log('in get', req.params.id);
   const movieId = req.params.id;
   const sqlText = `SELECT 
       "movies".id, 
