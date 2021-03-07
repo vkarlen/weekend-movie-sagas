@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 function AddMovie() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const genres = useSelector((store) => store.genres);
 
@@ -20,8 +21,6 @@ function AddMovie() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    console.log('on submit', newGenre);
-
     dispatch({
       type: 'ADD_MOVIE',
       payload: {
@@ -31,11 +30,23 @@ function AddMovie() {
         genre_id: newGenre,
       },
     });
+
+    history.push('/');
   }; // end handleSubmit
 
   const handleCancel = () => {
     console.log('in cancel');
+    clearInputs();
+
+    history.push('/');
   }; //end handleCancel
+
+  const clearInputs = () => {
+    setNewDescription('');
+    setNewGenre('');
+    setNewPoster('');
+    setNewTitle('');
+  }; // end clearInputs
 
   return (
     <div>
@@ -66,12 +77,10 @@ function AddMovie() {
 
         <select
           name="genre"
+          label="Pick a Genre"
           onChange={(evt) => setNewGenre(evt.target.value)}
           required
         >
-          <option disabled selected value>
-            Select a Genre
-          </option>
           {genres.map((genre) => {
             return <option value={genre.id}>{genre.name}</option>;
           })}
