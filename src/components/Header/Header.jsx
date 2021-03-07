@@ -6,6 +6,9 @@ function Header() {
       <h1>The Movies Saga!</h1>
       <nav>
         <div>
+          <Link to="/">Home</Link>
+        </div>
+        <div>
           <Link to="/add">Add Movie</Link>
         </div>
       </nav>
