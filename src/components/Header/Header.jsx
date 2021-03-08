@@ -7,12 +7,14 @@ function Header() {
   return (
     <Container maxWidth="lg" id="banner">
       <h1>The Movie Saga</h1>
+
       <nav>
         <span>
           <Link to="/" class="navigation">
             Home
           </Link>
         </span>
+
         <span>
           <Link to="/add" class="navigation">
             Add Movie

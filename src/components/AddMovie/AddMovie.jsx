@@ -3,12 +3,27 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import './AddMovie.css';
+
+import {
+  TextField,
+  Card,
+  Container,
+  Select,
+  MenuItem,
+  Button,
+  Grid,
+  InputLabel,
+  FormControl,
+} from '@material-ui/core';
+
 function AddMovie() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const genres = useSelector((store) => store.genres);
 
+  // Local Stores
   const [newTitle, setNewTitle] = useState('');
   const [newPoster, setNewPoster] = useState('');
   const [newDescription, setNewDescription] = useState('');
@@ -21,6 +36,7 @@ function AddMovie() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
+    // Send all info to the server
     dispatch({
       type: 'ADD_MOVIE',
       payload: {
@@ -35,13 +51,13 @@ function AddMovie() {
   }; // end handleSubmit
 
   const handleCancel = () => {
-    console.log('in cancel');
     clearInputs();
 
     history.push('/');
   }; //end handleCancel
 
   const clearInputs = () => {
+    // Clears all inputs
     setNewDescription('');
     setNewGenre('');
     setNewPoster('');
@@ -49,50 +65,78 @@ function AddMovie() {
   }; // end clearInputs
 
   return (
-    <div>
+    <Container maxWidth="sm">
       <h2>Add a Movie</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          label="Title"
-          value={newTitle}
-          onChange={(evt) => setNewTitle(evt.target.value)}
-          required
-        ></input>
 
-        <input
-          type="text"
-          label="Poster Image"
-          value={newPoster}
-          onChange={(evt) => setNewPoster(evt.target.value)}
-          required
-        ></input>
+      <Card>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2} direction="column" justify="center">
+            <Grid item xs={12}>
+              <TextField
+                type="text"
+                variant="outlined"
+                label="Title"
+                className="movieInput"
+                value={newTitle}
+                onChange={(evt) => setNewTitle(evt.target.value)}
+                required
+              />
+            </Grid>
 
-        <textarea
-          label="Description"
-          value={newDescription}
-          onChange={(evt) => setNewDescription(evt.target.value)}
-          required
-        ></textarea>
+            <Grid item xs={12}>
+              <TextField
+                type="text"
+                variant="outlined"
+                label="Poster Image"
+                className="movieInput"
+                value={newPoster}
+                onChange={(evt) => setNewPoster(evt.target.value)}
+                required
+              />
+            </Grid>
 
-        <select
-          name="genre"
-          label="Pick a Genre"
-          onChange={(evt) => setNewGenre(evt.target.value)}
-          required
-        >
-          {genres.map((genre) => {
-            return <option value={genre.id}>{genre.name}</option>;
-          })}
-        </select>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                variant="outlined"
+                rows={4}
+                className="movieInput"
+                value={newDescription}
+                onChange={(evt) => setNewDescription(evt.target.value)}
+                required
+                multiline
+              />
+            </Grid>
 
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+            <Grid item xs={5}>
+              <FormControl variant="outlined" className="movieInput">
+                <InputLabel id="pickGenre">Pick a Genre</InputLabel>
+                <Select
+                  name="genre"
+                  labelId="pickGenre"
+                  onChange={(evt) => setNewGenre(evt.target.value)}
+                  required
+                >
+                  {genres.map((genre) => {
+                    return <MenuItem value={genre.id}>{genre.name}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
 
-        <button type="submit">Save</button>
-      </form>
-    </div>
+            <Grid item xs={12}>
+              <Button variant="outlined" type="submit">
+                Save
+              </Button>
+
+              <Button variant="outlined" type="button" onClick={handleCancel}>
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Card>
+    </Container>
   );
 }
 

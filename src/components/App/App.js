@@ -11,14 +11,7 @@ import AddMovie from '../AddMovie/AddMovie';
 import DetailsPage from '../DetailsPage/DetailsPage';
 
 const theme = createMuiTheme({
-  // palette: {
-  //   primary: {
-  //     main: '#c81912',
-  //   },
-  //   secondary: {
-  //     main: '',
-  //   },
-  // },
+  //create palette
 });
 
 function App() {

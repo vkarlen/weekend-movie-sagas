@@ -1,6 +1,9 @@
 import { useParams, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import './DetailsPage.css';
+
+import { Container, Grid, Button } from '@material-ui/core';
 
 function DetailsPage() {
   const { id } = useParams();
@@ -18,25 +21,38 @@ function DetailsPage() {
   }, []);
 
   return (
-    <div>
-      <img src={movie.poster} alt={movie.title} />
+    <Container maxWidth="md">
+      <br />
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <img src={movie.poster} alt={movie.title} />
+        </Grid>
 
-      <h3>{movie.title}</h3>
+        <Grid item xs={8}>
+          <h2>{movie.title}</h2>
 
-      {movie.array_agg ? (
-        <ul>
-          {movie.array_agg.map((genre, index) => {
-            return <li key={index}>{genre}</li>;
-          })}
-        </ul>
-      ) : (
-        <ul>none</ul>
-      )}
+          {movie.array_agg ? (
+            <div>
+              {movie.array_agg.map((genre, index) => {
+                return (
+                  <span className="genreItem" key={index}>
+                    {genre}
+                  </span>
+                );
+              })}
+            </div>
+          ) : (
+            <span></span>
+          )}
 
-      <p>{movie.description}</p>
+          <p>{movie.description}</p>
+        </Grid>
+      </Grid>
 
-      <button onClick={() => history.push('/')}>Back</button>
-    </div>
+      <Button variant="outlined" onClick={() => history.push('/')}>
+        Back
+      </Button>
+    </Container>
   );
 }
 

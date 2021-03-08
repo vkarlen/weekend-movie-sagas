@@ -17,12 +17,14 @@ function MovieList() {
   return (
     <Container maxWidth="lg" id="movieContainer">
       <h2>Featured Films</h2>
+
       <Grid container spacing={2}>
         {movies.map((movie) => {
           return (
             <Grid item xs={2} key={movie.id}>
               <Card>
                 <h3>{movie.title}</h3>
+
                 <img
                   src={movie.poster}
                   alt={movie.title}

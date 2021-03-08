@@ -1,0 +1,10 @@
+.genreItem {
+  margin: 0px 5px;
+  font-weight: bold;
+  color: #222831;
+}
+
+Button {
+  width: 100px;
+  float: right;
+}
