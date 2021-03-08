@@ -1,18 +1,27 @@
 import { Link } from 'react-router-dom';
+import './Header.css';
+
+import { Container } from '@material-ui/core';
 
 function Header() {
   return (
-    <div>
-      <h1>The Movies Saga!</h1>
+    <Container maxWidth="lg" id="banner">
+      <h1>The Movie Saga</h1>
+
       <nav>
-        <div>
-          <Link to="/">Home</Link>
-        </div>
-        <div>
-          <Link to="/add">Add Movie</Link>
-        </div>
+        <span>
+          <Link to="/" class="navigation">
+            Home
+          </Link>
+        </span>
+
+        <span>
+          <Link to="/add" class="navigation">
+            Add Movie
+          </Link>
+        </span>
       </nav>
-    </div>
+    </Container>
   );
 }
 

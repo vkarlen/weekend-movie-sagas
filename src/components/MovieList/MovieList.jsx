@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './MovieList.css';
 
+import { Container, Grid, Card } from '@material-ui/core';
+
 function MovieList() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -13,23 +15,27 @@ function MovieList() {
   }, []);
 
   return (
-    <main>
-      <h1>MovieList</h1>
-      <section className="movies">
+    <Container maxWidth="lg" id="movieContainer">
+      <h2>Featured Films</h2>
+
+      <Grid container spacing={2}>
         {movies.map((movie) => {
           return (
-            <div key={movie.id}>
-              <h3>{movie.title}</h3>
-              <img
-                src={movie.poster}
-                alt={movie.title}
-                onClick={() => history.push(`/movie/${movie.id}`)}
-              />
-            </div>
+            <Grid item xs={2} key={movie.id}>
+              <Card>
+                <h3>{movie.title}</h3>
+
+                <img
+                  src={movie.poster}
+                  alt={movie.title}
+                  onClick={() => history.push(`/movie/${movie.id}`)}
+                />
+              </Card>
+            </Grid>
           );
         })}
-      </section>
-    </main>
+      </Grid>
+    </Container>
   );
 }
 
