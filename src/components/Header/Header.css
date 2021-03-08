@@ -1,0 +1,14 @@
+nav {
+  padding: 10px;
+}
+.navigation {
+  text-decoration: none;
+  font-size: 1.5em;
+  margin: 10px 30px;
+  color: #f2a365;
+}
+
+#banner {
+  background-color: #222831;
+  border-radius: 100px;
+}

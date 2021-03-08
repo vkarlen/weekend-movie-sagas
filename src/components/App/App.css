@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto&display=swap');
+
 .App {
   text-align: center;
 }
-
 
 .App-header {
   background-color: #222;
@@ -19,6 +20,29 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: 5em;
+  margin: 10px;
+  margin-top: 30px;
+  letter-spacing: 0.1em;
+  color: white;
+}
+
+h2 {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.05em;
+  color: #30475e;
+}
+
+font {
+  font-family: 'Roboto', sans-serif;
 }

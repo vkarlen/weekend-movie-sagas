@@ -50,7 +50,7 @@ function AddMovie() {
 
   return (
     <div>
-      <h3>Add a Movie</h3>
+      <h2>Add a Movie</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
